@@ -13,7 +13,7 @@ namespace Exercicio19
             int [] posicoes  = new int [num];
 
             posicoes = new int[num];
-            for (int i= 0; i < num; i++ )
+            for (int i= 0; i < num; i = i + 2 )
             {
                 System.Console.WriteLine("Digite o primeiro número");
                 posicoes[i] = int.Parse(Console.ReadLine());
