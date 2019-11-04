@@ -1,7 +1,7 @@
 using System;
 using Zoologico.Interfaces;
 
-namespace Zoologico.Models
+namespace Zoologico.Models.Animais
 {
     public class Golfinho : Animal, IAquatico
     {

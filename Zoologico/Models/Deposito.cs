@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Zoologico.Models
+namespace Zoologico.Models.Animais
 {
     public class Deposito
     {

@@ -1,67 +1,79 @@
 ﻿using System;
-
+using System.Linq;
+using Zoologico.Models.Animais;
+using Zoologico.Interfaces;
 namespace Zoologico
 {
     class Program
     {
         static void Main(string[] args)
         {
-            int animal;
+            var encerrouPrograma = false;
+            #region Loop Principal
+            do
+            {
+                #region  Menu Principal
+                var codigo = 0;
+                Console.Clear();
+                System.Console.WriteLine("*******************************");
+                System.Console.WriteLine("| Seja Bem-vindo ao Zoológico |");
+                System.Console.WriteLine("*******************************");
 
-            Console.Clear();
-            System.Console.WriteLine("*******************************");
-            System.Console.WriteLine("| Seja bem-vindo ao Zoológico |");
-            System.Console.WriteLine("*******************************");
-            System.Console.WriteLine("*******************************");
-            System.Console.WriteLine("****  1- Tubarão Martelo   ****");
-            System.Console.WriteLine("***   2- Tucano             ***");
-            System.Console.WriteLine("**    3- Arara               **");
-            System.Console.WriteLine("**    4- Leão                **");
-            System.Console.WriteLine("**    5- Orangotango         **");
-            System.Console.WriteLine("**    6- Chimpanzé           **");
-            System.Console.WriteLine("**    7- Pinguim             **");
-            System.Console.WriteLine("***   8- Tartaruga          ***");
-            System.Console.WriteLine("****  9- Golfinho          ****");
+                foreach ( var item in Deposito.Animais.Values)
+                {
+                    System.Console.WriteLine($"{"",5}{++codigo}. {item.GetType().Name}");
+                }
+                #endregion
+                System.Console.Write($"\n{"",2}Digite o código do animal:");
 
-            System.Console.WriteLine("Digite o número correspondente ao animal:");
-            animal = int.Parse(Console.ReadLine());
+                try
+                {
+                    var opcaoUsuario = int.Parse(Console.ReadLine());
+                    var animal = Deposito.Animais[opcaoUsuario];
+                    ClassificarAnimal(animal);
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine("Por favor, digite um código válido");
+                    Console.ReadLine();
+                }
+            } while (!encerrouPrograma);
+            #endregion
+        }
 
-            if(animal == 1)
+        public static void ClassificarAnimal(Animal animal)
+        {
+            var classe = animal.GetType();
+            var @interface = classe.GetInterfaces().FirstOrDefault();
+
+            if ((typeof(IAquatico)).Equals(@interface))
             {
-                System.Console.WriteLine("Este animal deve ir para o aquário");
+                System.Console.WriteLine($":::{classe.Name} pode ir para a Piscina :::");
             }
-            else if (animal == 2)
+            else if ((typeof(IArboricula)).Equals(@interface))
             {
-                System.Console.WriteLine("Este animal deve ir para a gaiola");
+                System.Console.WriteLine($":::{classe.Name} pode ir para a Casa na Árvore::: ");
             }
-            else if (animal == 3)
+            else if ((typeof(IBranquiado)).Equals(@interface))
             {
-                System.Console.WriteLine("Este animal deve ir para a gaiola");
+                System.Console.WriteLine($":::{classe.Name} pode ir para  o Aquário::: ");
             }
-            else if (animal == 4)
+            else if ((typeof(IPolar)).Equals(@interface))
             {
-                System.Console.WriteLine("Este animal deve ir para o pasto");
+                System.Console.WriteLine($":::{classe.Name} pode ir para a Piscina gelada::: ");
             }
-            else if (animal == 5)
+            else if ((typeof(ITerrestre)).Equals(@interface))
             {
-                System.Console.WriteLine("Este animal deve ir para casa em arvore");
+                System.Console.WriteLine($":::{classe.Name} pode ir para os Pasto ou Cavernas de Pedras ::: ");
             }
-            else if (animal == 6)
+            else if ((typeof(IVoador)).Equals(@interface))
             {
-                System.Console.WriteLine("Este animal deve ir para a gaiola");
+                System.Console.WriteLine($":::{classe.Name} pode ir para a Gaiola::: ");
             }
-            else if ( animal == 7)
-            {
-                System.Console.WriteLine("Este animal deve ir para piscina gelada");
-            }
-            else if (animal == 8)
-            {
-                System.Console.WriteLine("Este animal deve ir pode ir tanto para aquário quanto para a piscina ");
-            }
-            else if ( animal == 9)
-            {
-                System.Console.WriteLine("Este animal deve ir para aquário");
-            }
+
+            Console.ReadLine();
+
+
         }
     }
 }

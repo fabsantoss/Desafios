@@ -1,6 +1,7 @@
-namespace Zoologico.Models
+
+namespace Zoologico.Models.Animais
 {
-    public class Animal
+    public class Animal 
     {
         
     }
